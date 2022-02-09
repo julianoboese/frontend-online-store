@@ -10,14 +10,11 @@ class Home extends Component {
           <label htmlFor="search">
             Produto
             <input id="search" />
-
           </label>
-
-          <Link data-testid="shopping-cart-button" to="/cart">
-            <img src={ CartImage } alt="carrinho de compras" />
-          </Link>
         </form>
-
+        <Link data-testid="shopping-cart-button" to="/cart">
+          <img src={ CartImage } alt="carrinho de compras" />
+        </Link>
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
