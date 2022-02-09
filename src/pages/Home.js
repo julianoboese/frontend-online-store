@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import CartImage from '../assets/shopping-cart.png';
 
 class Home extends Component {
   render() {
@@ -8,7 +10,12 @@ class Home extends Component {
           <label htmlFor="search">
             Produto
             <input id="search" />
+
           </label>
+
+          <Link data-testid="shopping-cart-button" to="/cart">
+            <img src={ CartImage } alt="carrinho de compras" />
+          </Link>
         </form>
 
         <p data-testid="home-initial-message">
