@@ -15,9 +15,8 @@ class Cart extends Component {
     );
     const prods = (
       <section className="cart-products">
-        {cartProducts.map((prod, index) => (
-          index === cartProducts.indexOf(prod)
-          && (
+        {cartProducts.filter((prod, index) => index === cartProducts.indexOf(prod))
+          .map((prod) => (
             <div key={ prod.id }>
               <p data-testid="shopping-cart-product-name">{ prod.title }</p>
               <p data-testid="shopping-cart-product-quantity">
@@ -26,13 +25,12 @@ class Cart extends Component {
                 ).length }
               </p>
             </div>
-          )
-        ))}
+          ))}
       </section>
     );
 
     return (
-      <section className="productsCart">
+      <section className="cart">
         { truth ? prods : warning }
       </section>
     );
