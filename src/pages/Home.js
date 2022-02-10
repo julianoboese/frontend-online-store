@@ -29,7 +29,6 @@ class Home extends Component {
     this.setState({ selectedCatg: value });
     const response = await getProductsFromCategoryAndQuery(value);
     const { results } = await response;
-    console.log(results);
     this.setState({ prodList: results });
   }
 
@@ -70,7 +69,6 @@ class Home extends Component {
             </label>
           ))}
         </section>
-        <div clasName="listProducts"></div>
         <section className="searches">
           <form>
             <label htmlFor="search">
