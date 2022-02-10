@@ -13,9 +13,11 @@ class Cart extends Component {
         </h2>
       </div>
     );
+
     const prods = (
       <section className="cart-products">
-        {cartProducts.filter((prod, index) => index === cartProducts.indexOf(prod))
+        {cartProducts.filter((prod, index) => index === cartProducts
+          .indexOf(cartProducts.find((item) => item.id === prod.id)))
           .map((prod) => (
             <div key={ prod.id }>
               <p data-testid="shopping-cart-product-name">{ prod.title }</p>
