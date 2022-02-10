@@ -29,7 +29,7 @@ class ProductPage extends Component {
           <img src={ CartImage } alt="carrinho de compras" />
         </Link>
         <section>
-          <h1>{title}</h1>
+          <h1 data-testid="product-detail-name">{title}</h1>
           <img src={ image } alt={ title } />
           <p>{price}</p>
         </section>
