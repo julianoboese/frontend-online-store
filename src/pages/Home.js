@@ -35,7 +35,6 @@ class Home extends Component {
     this.setState({ selectedCatg: value });
     const response = await getProductsFromCategoryAndQuery(value);
     const { results } = await response;
-    console.log(value);
     this.setState({ prodList: results });
   }
 
