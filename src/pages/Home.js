@@ -24,9 +24,13 @@ class Home extends Component {
     this.setState({ prodList: results, inputValue: '' });
   };
 
-  setCategory = ({ target }) => {
+  setCategory = async ({ target }) => {
     const { value } = target;
     this.setState({ selectedCatg: value });
+    const response = await getProductsFromCategoryAndQuery(value);
+    const { results } = await response;
+    console.log(results);
+    this.setState({ prodList: results });
   }
 
   render() {
@@ -66,6 +70,7 @@ class Home extends Component {
             </label>
           ))}
         </section>
+        <div clasName="listProducts"></div>
         <section className="searches">
           <form>
             <label htmlFor="search">
