@@ -52,7 +52,7 @@ class Home extends Component {
     );
     return (
       <>
-        <section name="categories">
+        <section className="categories">
           {categories.map((category) => (
             <label data-testid="category" key={ category.id } htmlFor={ category.id }>
               <input
@@ -66,7 +66,7 @@ class Home extends Component {
             </label>
           ))}
         </section>
-        <section name="searches">
+        <section className="searches">
           <form>
             <label htmlFor="search">
               Produto
@@ -89,7 +89,7 @@ class Home extends Component {
             <img src={ CartImage } alt="carrinho de compras" />
           </Link>
         </section>
-        <section name="products">
+        <section className="products">
           { truth ? prods : warning }
         </section>
       </>
