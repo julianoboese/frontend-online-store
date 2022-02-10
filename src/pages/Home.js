@@ -24,9 +24,12 @@ class Home extends Component {
     this.setState({ prodList: results, inputValue: '' });
   };
 
-  setCategory = ({ target }) => {
+  setCategory = async ({ target }) => {
     const { value } = target;
     this.setState({ selectedCatg: value });
+    const response = await getProductsFromCategoryAndQuery(value);
+    const { results } = await response;
+    this.setState({ prodList: results });
   }
 
   render() {
