@@ -41,9 +41,11 @@ class Home extends Component {
       <section name="products">
         {prodList.map((prod) => (
           <Link key={ prod.id } to={ `/card/${prod.id}` } data-testid="product">
-            <p>{ prod.title }</p>
-            <img src={ prod.thumbnail } alt={ prod.title } />
-            <p>{ prod.price }</p>
+            <div>
+              <p>{ prod.title }</p>
+              <img src={ prod.thumbnail } alt={ prod.title } />
+              <p>{ prod.price }</p>
+            </div>
           </Link>
         ))}
       </section>
@@ -86,9 +88,9 @@ class Home extends Component {
           <Link data-testid="shopping-cart-button" to="/cart">
             <img src={ CartImage } alt="carrinho de compras" />
           </Link>
-          <section name="products">
-            { truth ? prods : warning }
-          </section>
+        </section>
+        <section name="products">
+          { truth ? prods : warning }
         </section>
       </>
     );
