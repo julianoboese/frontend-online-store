@@ -1,15 +1,15 @@
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home';
+import Cart from './pages/Cart';
 
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <Home />
-      </div>
-    </Router>
+    <BrowserRouter>
+      <Route exact path="/" component={ Home } />
+      <Route exact path="/cart" component={ Cart } />
+    </BrowserRouter>
   );
 }
 
