@@ -1,19 +1,10 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import CartImage from '../assets/shopping-cart.png';
 import { getCategories } from '../services/api';
 
 class Home extends Component {
-  state={
-    categories: [],
-  }
-
-  async componentDidMount() {
-    const categories = await getCategories();
-    this.setState({ categories });
-  }
-
   render() {
-    const { categories } = this.state;
-
     return (
       <>
         <section>
