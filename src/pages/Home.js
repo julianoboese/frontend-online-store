@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { func } from 'prop-types';
 import CartImage from '../assets/shopping-cart.png';
 import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
 import Card from '../components/Card';
@@ -40,6 +41,7 @@ class Home extends Component {
 
   render() {
     const { inputValue, categories, prodList } = this.state;
+    const { handleClick } = this.props;
     const truth = prodList.length > 0;
     const warning = (
       <p data-testid="home-initial-message">
@@ -47,7 +49,7 @@ class Home extends Component {
       </p>
     );
     const prods = (
-      <section name="products">
+      <section className="products">
         {prodList.map((prod) => (
           <Card
             key={ prod.id }
@@ -55,6 +57,7 @@ class Home extends Component {
             title={ prod.title }
             image={ prod.thumbnail }
             price={ prod.price }
+            handleClick={ handleClick }
           />
         ))}
       </section>
@@ -107,5 +110,9 @@ class Home extends Component {
     );
   }
 }
+
+Home.propTypes = {
+  handleClick: func.isRequired,
+};
 
 export default Home;
