@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import CartImage from '../assets/shopping-cart.png';
 import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
+import Card from '../components/Card';
 
 class Home extends Component {
   state={
@@ -14,6 +15,11 @@ class Home extends Component {
   async componentDidMount() {
     const categories = await getCategories();
     this.setState({ categories });
+  }
+
+  handleChanges = ({ target }) => {
+    const { value } = target;
+    this.setState({ inputValue: value });
   }
 
   go = async (e) => {
@@ -30,7 +36,7 @@ class Home extends Component {
   }
 
   render() {
-    const { categories, prodList } = this.state;
+    const { inputValue, categories, prodList } = this.state;
     const truth = prodList.length > 0;
     const warning = (
       <p data-testid="home-initial-message">
@@ -40,13 +46,13 @@ class Home extends Component {
     const prods = (
       <section name="products">
         {prodList.map((prod) => (
-          <Link key={ prod.id } to={ `/card/${prod.id}` } data-testid="product">
-            <div>
-              <p>{ prod.title }</p>
-              <img src={ prod.thumbnail } alt={ prod.title } />
-              <p>{ prod.price }</p>
-            </div>
-          </Link>
+          <Card
+            key={ prod.id }
+            id={ prod.id }
+            title={ prod.title }
+            image={ prod.thumbnail }
+            price={ prod.price }
+          />
         ))}
       </section>
     );
@@ -73,6 +79,8 @@ class Home extends Component {
               <input
                 id="search"
                 data-testid="query-input"
+                name="search"
+                value={ inputValue }
                 onChange={ this.handleChanges }
               />
             </label>
