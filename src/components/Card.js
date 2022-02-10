@@ -8,7 +8,7 @@ class Card extends Component {
     return (
       <Link
         to={ { pathname: `/product/${id}`, state: { title, image, price } } }
-        data-testid="product-detail-link"
+        data-testid="product"
       >
         <div>
           <p>{ title }</p>
