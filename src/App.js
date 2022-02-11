@@ -8,6 +8,7 @@ import ProductPage from './pages/ProductPage';
 class App extends Component {
   state = {
     cartProducts: [],
+
   }
 
   handleClick = (product) => {
