@@ -6,6 +6,7 @@ import CartImage from '../assets/shopping-cart.png';
 
 class ProductPage extends Component {
   state = {
+    prod: {},
     id: '',
     title: '',
     image: '',
@@ -17,14 +18,15 @@ class ProductPage extends Component {
     const { params } = match;
     const { id } = params;
     const product = await getProduct(id);
-    this.setState({ id: product.id,
+    this.setState({ prod: product,
+      id: product.id,
       title: product.title,
       image: product.thumbnail,
       price: product.price });
   }
 
   render() {
-    const { id, title, image, price } = this.state;
+    const { prod, id, title, image, price } = this.state;
     const { handleClick } = this.props;
     return (
       <>
@@ -39,7 +41,7 @@ class ProductPage extends Component {
             type="button"
             id={ id }
             data-testid="product-detail-add-to-cart"
-            onClick={ handleClick }
+            onClick={ () => handleClick(prod) }
           >
             Adicionar ao carrinho
           </button>
