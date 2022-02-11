@@ -4,16 +4,18 @@ import PropTypes from 'prop-types';
 
 class Card extends Component {
   render() {
-    const { id, title, image, price, handleClick } = this.props;
+    const { prod, handleClick } = this.props;
+    const { id, title, thumbnail, price } = prod;
+
     return (
       <div>
         <Link
-          to={ { pathname: `/product/${id}`, state: { title, image, price } } }
+          to={ { pathname: `/product/${id}`, state: { title, thumbnail, price } } }
           data-testid="product-detail-link"
         >
           <div data-testid="product">
             <p>{ title }</p>
-            <img src={ image } alt={ title } />
+            <img src={ thumbnail } alt={ title } />
             <p>{ price }</p>
           </div>
         </Link>
@@ -21,7 +23,7 @@ class Card extends Component {
           type="button"
           id={ id }
           data-testid="product-add-to-cart"
-          onClick={ handleClick }
+          onClick={ () => handleClick(prod) }
         >
           Adicionar ao carrinho
         </button>
@@ -30,10 +32,12 @@ class Card extends Component {
   }
 }
 Card.propTypes = {
-  id: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
+  prod: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    thumbnail: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+  }).isRequired,
   handleClick: PropTypes.func.isRequired,
 };
 export default Card;

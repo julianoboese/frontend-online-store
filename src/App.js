@@ -4,18 +4,32 @@ import './App.css';
 import Home from './pages/Home';
 import Cart from './pages/Cart';
 import ProductPage from './pages/ProductPage';
-import { getProduct } from './services/api';
 
 class App extends Component {
   state = {
     cartProducts: [],
   }
 
-  handleClick = async ({ target }) => {
-    const { id } = target;
-    const product = await getProduct(id);
+  handleClick = (product) => {
     this.setState((prevState) => ({
       cartProducts: [...prevState.cartProducts, product],
+    }));
+  }
+
+  handleDecrease = (product) => {
+    const { id } = product;
+    const { cartProducts } = this.state;
+    cartProducts.splice(cartProducts
+      .indexOf(cartProducts.find((item) => item.id === id)), 1);
+    this.setState(() => ({
+      cartProducts,
+    }));
+  }
+
+  handleRemove = (product) => {
+    const { id } = product;
+    this.setState((prevState) => ({
+      cartProducts: prevState.cartProducts.filter((item) => item.id !== id),
     }));
   }
 
@@ -36,7 +50,13 @@ class App extends Component {
             exact
             path="/cart"
             render={ (props) => (
-              <Cart { ...props } cartProducts={ cartProducts } />
+              <Cart
+                { ...props }
+                cartProducts={ cartProducts }
+                handleClick={ this.handleClick }
+                handleDecrease={ this.handleDecrease }
+                handleRemove={ this.handleRemove }
+              />
             ) }
           />
           <Route

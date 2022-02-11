@@ -53,10 +53,7 @@ class Home extends Component {
         {prodList.map((prod) => (
           <Card
             key={ prod.id }
-            id={ prod.id }
-            title={ prod.title }
-            image={ prod.thumbnail }
-            price={ prod.price }
+            prod={ prod }
             handleClick={ handleClick }
           />
         ))}
