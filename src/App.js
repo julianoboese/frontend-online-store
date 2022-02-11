@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home';
 import Cart from './pages/Cart';
@@ -24,21 +24,29 @@ class App extends Component {
 
     return (
       <BrowserRouter>
-        <Route
-          exact
-          path="/"
-          render={ (props) => (
-            <Home { ...props } handleClick={ this.handleClick } />
-          ) }
-        />
-        <Route
-          exact
-          path="/cart"
-          render={ (props) => (
-            <Cart { ...props } cartProducts={ cartProducts } />
-          ) }
-        />
-        <Route exact path="/product/:id" component={ ProductPage } />
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={ (props) => (
+              <Home { ...props } handleClick={ this.handleClick } />
+            ) }
+          />
+          <Route
+            exact
+            path="/cart"
+            render={ (props) => (
+              <Cart { ...props } cartProducts={ cartProducts } />
+            ) }
+          />
+          <Route
+            exact
+            path="/product/:id"
+            render={ (props) => (
+              <ProductPage { ...props } handleClick={ this.handleClick } />
+            ) }
+          />
+        </Switch>
       </BrowserRouter>
     );
   }

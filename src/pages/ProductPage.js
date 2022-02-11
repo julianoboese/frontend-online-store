@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { string, shape, bool } from 'prop-types';
+import { string, shape, bool, func } from 'prop-types';
 import { getProduct } from '../services/api';
 import CartImage from '../assets/shopping-cart.png';
 
 class ProductPage extends Component {
   state = {
+    id: '',
     title: '',
     image: '',
     price: '',
@@ -16,13 +17,15 @@ class ProductPage extends Component {
     const { params } = match;
     const { id } = params;
     const product = await getProduct(id);
-    this.setState({ title: product.title,
+    this.setState({ id: product.id,
+      title: product.title,
       image: product.thumbnail,
       price: product.price });
   }
 
   render() {
-    const { title, image, price } = this.state;
+    const { id, title, image, price } = this.state;
+    const { handleClick } = this.props;
     return (
       <>
         <Link data-testid="shopping-cart-button" to="/cart">
@@ -32,6 +35,14 @@ class ProductPage extends Component {
           <h1 data-testid="product-detail-name">{title}</h1>
           <img src={ image } alt={ title } />
           <p>{price}</p>
+          <button
+            type="button"
+            id={ id }
+            data-testid="product-detail-add-to-cart"
+            onClick={ handleClick }
+          >
+            Adicionar ao carrinho
+          </button>
         </section>
       </>
     );
@@ -47,6 +58,7 @@ ProductPage.propTypes = {
     path: string.isRequired,
     url: string.isRequired,
   }).isRequired,
+  handleClick: func.isRequired,
 };
 
 export default ProductPage;
