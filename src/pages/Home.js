@@ -58,6 +58,7 @@ class Home extends Component {
             image={ prod.thumbnail }
             price={ prod.price }
             handleClick={ handleClick }
+            prod={ prod }
           />
         ))}
       </section>

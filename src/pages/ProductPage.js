@@ -7,15 +7,18 @@ import CartImage from '../assets/shopping-cart.png';
 const number3 = 3;
 const number4 = 4;
 const number5 = 5;
-const rating = [1, 2, number3, number4, number5];
+const ratings = [1, 2, number3, number4, number5];
 
 class ProductPage extends Component {
   state = {
+    prod: {},
     id: '',
     title: '',
     image: '',
     price: '',
-
+    email: '',
+    rating: '',
+    comment: '',
   }
 
   async componentDidMount() {
@@ -23,23 +26,32 @@ class ProductPage extends Component {
     const { params } = match;
     const { id } = params;
     const product = await getProduct(id);
-    this.setState({ id: product.id,
+    this.setState({ prod: product,
+      id: product.id,
       title: product.title,
       image: product.thumbnail,
       price: product.price });
   }
 
   handleChanges = ({ target }) => {
-    const { value } = target;
-    this.setState({ test: value });
+    this.setState({ [target.name]: target.value });
   };
 
-  go = () => {
+  go = (e) => {
+    e.preventDefault();
+    const { id, email, rating, comment } = this.state;
+    const comments = JSON.parse(localStorage.getItem(JSON.stringify(id))) || [];
+    localStorage.setItem(JSON.stringify(id),
+      JSON.stringify([...comments, { email, rating, comment }]));
+    this.forceUpdate();
   };
 
   render() {
-    const { id, title, image, price, test } = this.state;
+    const { prod, id, title, image, price, test } = this.state;
     const { handleClick } = this.props;
+    const comments = id && JSON.parse(localStorage.getItem(JSON.stringify(id)));
+    console.log(comments, id);
+
     return (
       <>
         <Link data-testid="shopping-cart-button" to="/cart">
@@ -54,7 +66,7 @@ class ProductPage extends Component {
             id={ id }
             name={ test }
             data-testid="product-detail-add-to-cart"
-            onClick={ handleClick }
+            onClick={ () => handleClick(prod) }
           >
             Adicionar ao carrinho
           </button>
@@ -65,31 +77,43 @@ class ProductPage extends Component {
               type="email"
               data-testid="product-detail-email"
               name="email"
-              onChange={ this.handlechanges }
+              onChange={ this.handleChanges }
             />
             <section>
-              {rating.map((item) => (
+              {ratings.map((item) => (
                 <input
                   key={ item }
                   type="radio"
                   name="rating"
                   data-testid={ `${item}-rating` }
                   value={ item }
-                  onChange={ this.handlechanges }
+                  onChange={ this.handleChanges }
                 />
               ))}
             </section>
-            <label htmlFor="comentary">
+            <label htmlFor="comment">
               <textarea
-                id="comentary"
+                id="comment"
+                name="comment"
                 data-testid="product-detail-evaluation"
-                onChange={ this.handlechanges }
+                onChange={ this.handleChanges }
               />
             </label>
             <button type="submit" data-testid="submit-review-btn" onClick={ this.go }>
               Enviar
             </button>
           </form>
+        </section>
+        <section className="commentsList">
+          {comments && comments.map((comment) => (
+            <div key={ comment.email }>
+              <p>
+                { comment.email }
+                <span>{ comment.rating }</span>
+              </p>
+              <p>{comment.comment}</p>
+            </div>
+          ))}
         </section>
       </>
     );
