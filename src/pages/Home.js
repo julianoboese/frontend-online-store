@@ -55,7 +55,6 @@ class Home extends Component {
             key={ prod.id }
             prod={ prod }
             handleClick={ handleClick }
-            prod={ prod }
           />
         ))}
       </section>

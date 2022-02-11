@@ -50,7 +50,6 @@ class ProductPage extends Component {
     const { prod, id, title, image, price } = this.state;
     const { handleClick } = this.props;
     const comments = id && JSON.parse(localStorage.getItem(JSON.stringify(id)));
-    console.log(comments, id);
 
     return (
       <>
