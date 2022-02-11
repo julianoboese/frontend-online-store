@@ -6,6 +6,7 @@ class Card extends Component {
   render() {
     const { prod, handleClick } = this.props;
     const { id, title, thumbnail, price } = prod;
+
     return (
       <div>
         <Link

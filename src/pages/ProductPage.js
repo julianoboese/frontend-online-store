@@ -47,7 +47,7 @@ class ProductPage extends Component {
   };
 
   render() {
-    const { prod, id, title, image, price, test } = this.state;
+    const { prod, id, title, image, price } = this.state;
     const { handleClick } = this.props;
     const comments = id && JSON.parse(localStorage.getItem(JSON.stringify(id)));
     console.log(comments, id);
