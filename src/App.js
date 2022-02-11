@@ -9,6 +9,7 @@ import { getProduct } from './services/api';
 class App extends Component {
   state = {
     cartProducts: [],
+
   }
 
   handleClick = async ({ target }) => {
