@@ -63,7 +63,6 @@ class ProductPage extends Component {
           <button
             type="button"
             id={ id }
-            name={ test }
             data-testid="product-detail-add-to-cart"
             onClick={ () => handleClick(prod) }
           >

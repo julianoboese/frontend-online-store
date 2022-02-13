@@ -16,8 +16,8 @@ class Cart extends Component {
 
     const prods = (
       <section className="cart-products">
-        {cartProducts.filter((prod, index) => index === cartProducts
-          .indexOf(cartProducts.find((item) => item.id === prod.id)))
+        {cartProducts.filter((prod, index, allCartProducts) => index === allCartProducts
+          .indexOf(allCartProducts.find((item) => item.id === prod.id)))
           .sort((a, b) => b.price - a.price)
           .map((prod) => (
             <div key={ prod.id }>
@@ -32,7 +32,7 @@ class Cart extends Component {
                 type="button"
                 id={ prod.id }
                 data-testid="product-decrease-quantity"
-                onClick={ () => handleDecrease(prod) }
+                onClick={ () => handleDecrease(prod.id) }
               >
                 -
               </button>
@@ -47,7 +47,7 @@ class Cart extends Component {
               <button
                 type="button"
                 id={ prod.id }
-                onClick={ () => handleRemove(prod) }
+                onClick={ () => handleRemove(prod.id) }
               >
                 Remover
               </button>

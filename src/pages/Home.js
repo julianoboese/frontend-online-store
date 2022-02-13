@@ -59,6 +59,7 @@ class Home extends Component {
         ))}
       </section>
     );
+
     return (
       <>
         <section className="categories">

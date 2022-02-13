@@ -8,7 +8,6 @@ import ProductPage from './pages/ProductPage';
 class App extends Component {
   state = {
     cartProducts: [],
-
   }
 
   handleClick = (product) => {
@@ -17,8 +16,7 @@ class App extends Component {
     }));
   }
 
-  handleDecrease = (product) => {
-    const { id } = product;
+  handleDecrease = (id) => {
     const { cartProducts } = this.state;
     cartProducts.splice(cartProducts
       .indexOf(cartProducts.find((item) => item.id === id)), 1);
@@ -27,8 +25,7 @@ class App extends Component {
     }));
   }
 
-  handleRemove = (product) => {
-    const { id } = product;
+  handleRemove = (id) => {
     this.setState((prevState) => ({
       cartProducts: prevState.cartProducts.filter((item) => item.id !== id),
     }));
