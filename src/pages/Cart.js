@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class Cart extends Component {
   render() {
@@ -57,9 +58,14 @@ class Cart extends Component {
     );
 
     return (
-      <section className="cart">
-        { truth ? prods : warning }
-      </section>
+      <>
+        <section className="cart">
+          { truth ? prods : warning }
+        </section>
+        <Link to="/checkout">
+          <button type="button" data-testid="checkout-products">Checkout</button>
+        </Link>
+      </>
     );
   }
 }

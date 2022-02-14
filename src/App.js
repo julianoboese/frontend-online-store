@@ -4,6 +4,7 @@ import './App.css';
 import Home from './pages/Home';
 import Cart from './pages/Cart';
 import ProductPage from './pages/ProductPage';
+import Checkout from './pages/Checkout';
 
 class App extends Component {
   state = {
@@ -62,6 +63,16 @@ class App extends Component {
             path="/product/:id"
             render={ (props) => (
               <ProductPage { ...props } handleClick={ this.handleClick } />
+            ) }
+          />
+          <Route
+            exact
+            path="/checkout"
+            render={ (props) => (
+              <Checkout
+                { ...props }
+                cartProducts={ cartProducts }
+              />
             ) }
           />
         </Switch>
