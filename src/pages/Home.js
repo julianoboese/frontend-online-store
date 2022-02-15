@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { func } from 'prop-types';
+import PropTypes from 'prop-types';
 import CartImage from '../assets/shopping-cart.png';
 import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
 import Card from '../components/Card';
@@ -41,7 +41,7 @@ class Home extends Component {
 
   render() {
     const { inputValue, categories, prodList } = this.state;
-    const { handleClick } = this.props;
+    const { handleClick, cartProducts } = this.props;
     const truth = prodList.length > 0;
     const warning = (
       <p data-testid="home-initial-message">
@@ -99,6 +99,7 @@ class Home extends Component {
           </form>
           <Link data-testid="shopping-cart-button" to="/cart">
             <img src={ CartImage } alt="carrinho de compras" />
+            <p data-testid="shopping-cart-size">{cartProducts.length}</p>
           </Link>
         </section>
         <section className="products">
@@ -110,7 +111,8 @@ class Home extends Component {
 }
 
 Home.propTypes = {
-  handleClick: func.isRequired,
+  handleClick: PropTypes.func.isRequired,
+  cartProducts: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Home;

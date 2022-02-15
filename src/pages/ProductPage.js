@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { string, shape, bool, func } from 'prop-types';
+import PropTypes from 'prop-types';
 import { getProduct } from '../services/api';
 import CartImage from '../assets/shopping-cart.png';
 
@@ -48,13 +48,14 @@ class ProductPage extends Component {
 
   render() {
     const { prod, id, title, image, price } = this.state;
-    const { handleClick } = this.props;
+    const { handleClick, cartProducts } = this.props;
     const comments = id && JSON.parse(localStorage.getItem(JSON.stringify(id)));
 
     return (
       <>
         <Link data-testid="shopping-cart-button" to="/cart">
           <img src={ CartImage } alt="carrinho de compras" />
+          <p data-testid="shopping-cart-size">{cartProducts.length}</p>
         </Link>
         <section className="productDetails">
           <h1 data-testid="product-detail-name">{title}</h1>
@@ -119,15 +120,16 @@ class ProductPage extends Component {
 }
 
 ProductPage.propTypes = {
-  match: shape({
-    isExact: bool.isRequired,
-    params: shape({
-      id: string.isRequired,
+  match: PropTypes.shape({
+    isExact: PropTypes.bool.isRequired,
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
     }).isRequired,
-    path: string.isRequired,
-    url: string.isRequired,
+    path: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
   }).isRequired,
-  handleClick: func.isRequired,
+  handleClick: PropTypes.func.isRequired,
+  cartProducts: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default ProductPage;

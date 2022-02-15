@@ -11,10 +11,17 @@ class App extends Component {
     cartProducts: [],
   }
 
+  componentDidMount() {
+    this.setState({ cartProducts: JSON.parse(localStorage.getItem('cart')) || [] });
+  }
+
   handleClick = (product) => {
     this.setState((prevState) => ({
       cartProducts: [...prevState.cartProducts, product],
-    }));
+    }), () => {
+      const { cartProducts } = this.state;
+      localStorage.setItem('cart', JSON.stringify(cartProducts));
+    });
   }
 
   handleDecrease = (id) => {
@@ -23,13 +30,18 @@ class App extends Component {
       .indexOf(cartProducts.find((item) => item.id === id)), 1);
     this.setState(() => ({
       cartProducts,
-    }));
+    }), () => {
+      localStorage.setItem('cart', JSON.stringify(cartProducts));
+    });
   }
 
   handleRemove = (id) => {
     this.setState((prevState) => ({
       cartProducts: prevState.cartProducts.filter((item) => item.id !== id),
-    }));
+    }), () => {
+      const { cartProducts } = this.state;
+      localStorage.setItem('cart', JSON.stringify(cartProducts));
+    });
   }
 
   render() {
@@ -42,7 +54,11 @@ class App extends Component {
             exact
             path="/"
             render={ (props) => (
-              <Home { ...props } handleClick={ this.handleClick } />
+              <Home
+                { ...props }
+                handleClick={ this.handleClick }
+                cartProducts={ cartProducts }
+              />
             ) }
           />
           <Route
@@ -62,7 +78,11 @@ class App extends Component {
             exact
             path="/product/:id"
             render={ (props) => (
-              <ProductPage { ...props } handleClick={ this.handleClick } />
+              <ProductPage
+                { ...props }
+                handleClick={ this.handleClick }
+                cartProducts={ cartProducts }
+              />
             ) }
           />
           <Route
