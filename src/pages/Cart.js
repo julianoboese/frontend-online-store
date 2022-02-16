@@ -40,6 +40,9 @@ class Cart extends Component {
               <button
                 type="button"
                 id={ prod.id }
+                disabled={ cartProducts.filter(
+                  (item) => item.id === prod.id,
+                ).length === prod.available_quantity }
                 data-testid="product-increase-quantity"
                 onClick={ () => handleClick(prod) }
               >
